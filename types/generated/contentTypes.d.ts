@@ -362,32 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiHomeHome extends Schema.SingleType {
-  collectionName: 'homes';
-  info: {
-    singularName: 'home';
-    pluralName: 'homes';
-    displayName: 'home';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    avatar: Attribute.Text;
-    headline: Attribute.String;
-    firstname: Attribute.String;
-    lastname: Attribute.String;
-    subheadline: Attribute.Text;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -814,6 +788,91 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiProfileProfile extends Schema.SingleType {
+  collectionName: 'profiles';
+  info: {
+    singularName: 'profile';
+    pluralName: 'profiles';
+    displayName: 'profile';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    headline: Attribute.String;
+    subheadline: Attribute.Text;
+    bio: Attribute.Text;
+    connect: Attribute.Text;
+    resume: Attribute.String;
+    email: Attribute.String;
+    linkedin: Attribute.String;
+    github: Attribute.String;
+    instagram: Attribute.String;
+    buymeacoffe: Attribute.String;
+    githubStats: Attribute.String;
+    githubStreak: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::profile.profile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProjectProject extends Schema.CollectionType {
+  collectionName: 'projects';
+  info: {
+    singularName: 'project';
+    pluralName: 'projects';
+    displayName: 'project';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    type: Attribute.Enumeration<['personal', 'client']>;
+    title: Attribute.String;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    category: Attribute.String;
+    client: Attribute.String;
+    role: Attribute.String;
+    url: Attribute.String;
+    repository: Attribute.String;
+    description: Attribute.Text;
+    techStack: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    lesson: Attribute.Text;
+    date: Attribute.Date;
+    isPinned: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -824,7 +883,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::home.home': ApiHomeHome;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -833,6 +891,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::profile.profile': ApiProfileProfile;
+      'api::project.project': ApiProjectProject;
     }
   }
 }
